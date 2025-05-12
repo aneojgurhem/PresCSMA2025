@@ -1,7 +1,7 @@
 {
-    "latex-workshop.latex.external.build.command": "just",
+    "latex-workshop.latex.external.build.command": "sh",
     "latex-workshop.latex.external.build.args": [
-        "compile",
-        "${file}",
-    ]
+        "-c",
+        "docker run --rm -v $PWD:/src -w /src -u $UID:$GID latex just compile",
+    ],
 }

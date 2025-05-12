@@ -9,6 +9,7 @@ compile:
     #!/bin/bash
     export TEXINPUTS="{{THEME_DIR}}//:$TEXINPUTS"
     export OSFONTDIR="{{FONTS_DIR}}//:$OSFONTDIR"
+    export TEXMFCACHE="$(realpath ./cache)"
     if which latexmk > /dev/null 2>&1; then
         echo "Using latexmk to compile the document."
         latexmk -lualatex $PDFLATEX_FLAGS "$(realpath ./presentation.tex)"
