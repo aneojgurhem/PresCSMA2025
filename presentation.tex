@@ -44,20 +44,13 @@
       \item Code optimization
       \begin{itemize}
         \item Performance analysis and bottleneck identification
-        \item Porting applications to support GPU
+        \item Porting applications to support accelerators (Nvidia and AMD GPUs, Google TPU, AWS Trainium, FPGA\dots)
         \item Application industrialisation (automation, reliability, repeatability)
+        \item Floating point stabilisation and optimization
       \end{itemize}
       \item Cloud computing
       \begin{itemize}
-        \item Application migration to a specific cloud provider (AWS, GCP or Azure)
-      \end{itemize}
-      \item ArmoniK
-      \begin{itemize}
-        \item Links our expertise domains
-      \end{itemize}
-      \item Numerical instabilities detection
-      \begin{itemize}
-        \item InterFLOP
+        \item Application migration to a specific or hybrid cloud provider (AWS, GCP, S3NS, OVH, Qarnot, Oracle\dots)
       \end{itemize}
     \end{itemize}
   \end{frame}
@@ -65,7 +58,7 @@
   \begin{frame}
     \frametitle{Floating Point Arithmetic}
     \begin{itemize}
-      \item Interflop ANR project with:Aneo, CEA - LIST, EDF, Intel, Sorbonne Université - LIP6, Triscale-Innov, Université Perpignan - LAMPS, UVSQ - Li-PaRAD
+      \item Interflop/FPT4 ANR project with:Aneo, CEA - LIST, EDF, Intel, Sorbonne Université - LIP6, Triscale-Innov, Université Perpignan - LAMPS, UVSQ - Li-PaRAD
       \item Analyzing round-off error propagation in numerical applications
       \item ANEO's contribution:
       \begin{itemize}
@@ -84,12 +77,14 @@
     \frametitle{What is the Cloud?}
       \begin{alertblock}{Definition}
       \begin{quote}
-        Paradigm for enabling network access to a scalable and elastic pool of shareable physical
-        or virtual resources with self-service provisioning and administration on-demand.
+        Paradigm for enabling network access to a \textbf<2>{scalable} and \textbf<2>{elastic} pool of shareable physical
+        or virtual resources with \textbf<2>{self-service} provisioning and administration \textbf<2>{on-demand}.
         \\
         --- ISO/IEC 17788:2014
       \end{quote}
     \end{alertblock}
+
+    \only<2>{All of that through APIs and code}
   \end{frame}
 
   \begin{frame}
@@ -100,60 +95,10 @@
   \end{frame}
 
 \begin{frame}
-  \frametitle{Cloud Deployment Models}
-
-  \begin{itemize}
-    \item \textbf{Public Cloud}
-    \begin{itemize}
-      \item Resources are owned and operated by a third-party provider (e.g., AWS, Azure)
-      \item Shared infrastructure across multiple customers
-    \end{itemize}
-
-    \item \textbf{Private Cloud}
-    \begin{itemize}
-      \item Cloud infrastructure dedicated to a single organization
-      \item Hosted on-premises or by a third party
-    \end{itemize}
-
-    \item \textbf{Hybrid Cloud}
-    \begin{itemize}
-      \item Combines public and private clouds
-      \item Allows data and apps to move between environments
-    \end{itemize}
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
   \frametitle{Cloud Service Models}
-
-  \begin{itemize}
-    \item \textbf{Infrastructure as a Service (IaaS)}
-    \begin{itemize}
-      \item Provides virtual machines, networking, and storage
-      \item User manages OS, apps, and runtime
-      \item \emph{Example: Amazon EC2, Google Compute Engine}
-    \end{itemize}
-
-    \item \textbf{Platform as a Service (PaaS)}
-    \begin{itemize}
-      \item Provides platforms to develop, run, and manage applications
-      \item Abstracts infrastructure management
-      \item \emph{Example: Heroku, Google App Engine}
-    \end{itemize}
-
-    \item \textbf{Software as a Service (SaaS)}
-    \begin{itemize}
-      \item Delivers software over the internet
-      \item User only interacts with the application
-      \item \emph{Example: Gmail, Dropbox, Salesforce}
-    \end{itemize}
-
-    \item \textbf{Serverless}
-    \begin{itemize}
-      \item Application infrastructure tends to be abstracted away
-      \item Same goes for computing resources
-    \end{itemize}
-  \end{itemize}
+  \centering
+  \vfill
+  \includegraphics[width=\textwidth]{saas.png}
 \end{frame}
 
 \begin{frame}
@@ -161,28 +106,28 @@
 
   \begin{columns}[T] % Align columns at the top
     \begin{column}{0.33\textwidth}
-      \textbf{Large scale computations}
+      \textbf{Small scale computations}
       \begin{itemize}
-        \item 100s of nodes
-        \item Tight coupling
-        \item Need for low latency network for good performance
-        \item Based on MPI+X
+        \item Fit on developers' laptop
+        \item Possible need for parametric study
       \end{itemize}
     \end{column}
     \begin{column}{0.33\textwidth}
       \textbf{Medium scale computations}
       \begin{itemize}
         \item Tend to fit on 1 node with 100s of cores
-        \item Previously based on MPI+X
+        \item Previously based on MPI+X and a few nodes
         \item No longer needed due to single node performance
         \item Possible need for parametric study
       \end{itemize}
     \end{column}
     \begin{column}{0.33\textwidth}
-      \textbf{Small scale computations}
+      \textbf{Large scale computations}
       \begin{itemize}
-        \item Fit on developers' laptop
-        \item Possible need for parametric study
+        \item 100s of nodes
+        \item Tight coupling
+        \item Need for low latency network for good performance
+        \item Based on MPI+X
       \end{itemize}
     \end{column}
   \end{columns}
@@ -197,85 +142,133 @@
   % \end{tikzpicture}
 \end{frame}
 
+% \begin{frame}
+%   % todo: verify this slide
+%   % ethernet should be checked
+%   \frametitle{Large Scale Computations}
+
+%   \begin{itemize}
+%     \item \textbf{On-premises}
+%     \begin{itemize}
+%       \item SLURM, Torque, Moab
+%       \item HPC clusters / supercomputers
+%       \item High-speed interconnects (InfiniBand, Omni-Path)
+%     \end{itemize}
+
+%     \item \textbf{Amazon Web Services (AWS)}
+%     \begin{itemize}
+%       \item Managed services : AWS Batch, AWS ParallelCluster (SLURM)
+%       \item Colocated resources with high-speed ethernet (Elastic Fabric Adapter from AWS)
+%       \item Limited to the configurations exposed by AWS
+%       \item Useful to start quickly
+%     \end{itemize}
+
+%     \item \textbf{Google Cloud Platform (GCP)}
+%     \begin{itemize}
+%       \item Managed service : Google Batch
+%       \item Colocated resources with high-speed ethernet (Google Cloud's high-speed network) --> Falcon
+%       \item Aneo contributes on High Availability for GCP SLURM deployment available in Cluster Toolkit
+%       \item More configuration options but should be deployed by the user (vs managed services)
+%     \end{itemize}
+%   \end{itemize}
+% \end{frame}
+
+
 \begin{frame}
-  % todo: verify this slide
-  % ethernet should be checked
-  \frametitle{Large Scale Computations}
+  \frametitle{1st Game Changers: Single Node Performance}
+
+  % machines devenues plus puissantes
+  % code devenu plus efficaces et rapides
 
   \begin{itemize}
-    \item \textbf{On-premises}
+    \item \textbf{2x AMD EPYC 9965}
     \begin{itemize}
-      \item SLURM, Torque, Moab
-      \item HPC clusters / supercomputers
-      \item High-speed interconnects (InfiniBand, Omni-Path)
+      \item AVX512: 16 FP64 operations per cycle
+      \item 192 cores and 384 threads
+      \item 10.3 TFLOPS in FP64
+      \item Allowed to have 2 on the same node
+      \item $\Rightarrow$ 384 \textbf{cores} on the same node!
     \end{itemize}
 
-    \item \textbf{Amazon Web Services (AWS)}
+    \item \textbf{NVidia H series GPU}
     \begin{itemize}
-      \item Managed services : AWS Batch, AWS ParallelCluster (SLURM)
-      \item Colocated resources with high-speed ethernet (Elastic Fabric Adapter from AWS)
-      \item Limited to the configurations exposed by AWS
-      \item Useful to start quickly
-    \end{itemize}
-
-    \item \textbf{Google Cloud Platform (GCP)}
-    \begin{itemize}
-      \item Managed service : Google Batch
-      \item Colocated resources with high-speed ethernet (Google Cloud's high-speed network)
-      \item Aneo contributes on High Availability for GCP SLURM deployment available in Cluster Toolkit
-      \item More configuration options but should be deployed by the user (vs managed services)
+      \item XXX cuda cores
+      \item 67 TFLOPS in FP64 and 4 PFLOPS in FP8 on tensor cores
+      \item Allowed to have 8 on the same node
+      \item \href{https://nvdam.widen.net/s/nb5zzzsjdf/hpc-datasheet-sc23-h200-datasheet-3002446}{datasheet doc}
     \end{itemize}
   \end{itemize}
+
+  \begin{block}{Impacts}
+    \begin{itemize}
+      \item Scale of computations is changing with time
+      \item Applications used to run on a few nodes can now run on a single node
+      \item Most powerful nodes cost more than 10s of thousands of euros
+    \end{itemize} 
+  \end{block}
+
 \end{frame}
 
 
 \begin{frame}
-  \frametitle{Medium/Small Scale Computations}
+  \frametitle{2nd Game changers: Cloud Providers}
 
-  \begin{itemize}
-    \item \textbf{1rst Game changers: Power of 1 node}
     \begin{itemize}
-      \item NVidia H series GPU for 67 TFLOPS in FP64 and 4 PFLOPS in FP8 on tensor cores
-      (\href{https://nvdam.widen.net/s/nb5zzzsjdf/hpc-datasheet-sc23-h200-datasheet-3002446}{datasheet})
-      \item AMD EPYC 9965 with 192 cores and 384 threads (bi-processor)
-    \end{itemize}
-
-    \item \textbf{2nd Game changers: Cloud Providers}
-    \begin{itemize}
-      \item Very expensive powerful nodes
+      \item Buying powerful machines without fully using them is too expensive
       \item Available on-demand and pay-as-you-go on the Cloud
-      \item Affordable to use them for small/medium scale computations
+      \item Affordable to use them for computations
     \end{itemize}
 
-    \item \textbf{Impacts}
-    \begin{itemize}
-      \item Applications running on a few nodes can now run on a single node
-      \item Buying powerful nodes without fully using them is not whorth it
-      \item Better rent them only when needed
-    \end{itemize}
+    \begin{block}{Impacts}
+      \begin{itemize}
+        \item Renting a powerful node for a few hours is better than buying it
+        \item Easy way to get heterogeneous resources (mix of CPUs and GPUs)
+      \end{itemize}
+    \end{block}
+\end{frame}
 
-    \item \textbf{3nd Game changers: Parametric studies}
-    \begin{itemize}
-      \item Small unitary runs
-      \item Needs a lot of them for exploring the parameter space or for Monte-Carlo simulations
-      \item Pre-processing and post-processing of potentially different nature and machines requirements
-      \item Need for integration of AI steps to accelerate exploration
-      \item May be large scale computations at the end
-    \end{itemize}
+\begin{frame}
+  \frametitle{3rd Game changers: Parametric studies}
 
+  \begin{itemize}
+    \item Small unitary runs
+    \item Needs a lot of them for exploring the parameter space or for Monte-Carlo simulations
+    \item Pre-processing and post-processing of potentially different nature and machines requirements
+    \item $\Rightarrow$ graph of hybrid computations
+    \item May be large scale computations at the end
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Recap}
+  \frametitle{Challenge: Fault Tolerance}
+
+  \begin{itemize}
+    \item Preemptible: cheaper (up to 80\%) computing resources that can be interrupted and reclaimed by the cloud provider anytime
+    \item Applications must be able to recover from failures and continue execution
+    \item Not suitable for all applications
+    \item Large scale MPI-based applications not designed to handle loss of nodes
+    \begin{itemize}
+      \item Checkpointing and Restart is the main strategy
+      \item Can work for preemptible resources but there is no guarantee that all the nodes will be available for the application to execute
+      \item PMIx not fully supported for addition and removal of nodes during application execution
+    \end{itemize}
+    \item Very suitable for graph of small scale computations
+    \begin{itemize}
+      \item Application can be reexecuted on another node if a preemption occurs
+      \item Support for heterogeneous resources
+      \item Adapt to the available resources count
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{How to take advantage of these features ?}
 
   \begin{itemize}
     \item Computations nature is changing with AIs and hardware evolutions
     \item Cloud introduces new computing paradigms for computations and hardware accessibility
     \item Decoupling of application and infrastructure lead to Serverless computing
-
-    
-
   \end{itemize}
 \end{frame}
 
