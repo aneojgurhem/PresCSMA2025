@@ -147,34 +147,138 @@
       \item User only interacts with the application
       \item \emph{Example: Gmail, Dropbox, Salesforce}
     \end{itemize}
+
+    \item \textbf{Serverless}
+    \begin{itemize}
+      \item Application infrastructure tends to be abstracted away
+      \item Same goes for computing resources
+    \end{itemize}
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{How do we make computations ?}
+  \frametitle{Scale of Computations}
+
+  \begin{columns}[T] % Align columns at the top
+    \begin{column}{0.33\textwidth}
+      \textbf{Large scale computations}
+      \begin{itemize}
+        \item 100s of nodes
+        \item Tight coupling
+        \item Need for low latency network for good performance
+        \item Based on MPI+X
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.33\textwidth}
+      \textbf{Medium scale computations}
+      \begin{itemize}
+        \item Tend to fit on 1 node with 100s of cores
+        \item Previously based on MPI+X
+        \item No longer needed due to single node performance
+        \item Possible need for parametric study
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.33\textwidth}
+      \textbf{Small scale computations}
+      \begin{itemize}
+        \item Fit on developers' laptop
+        \item Possible need for parametric study
+      \end{itemize}
+    \end{column}
+  \end{columns}
+
+  % \vspace{1cm}
+  % \centering
+  % \begin{tikzpicture}[remember picture]
+  %   \draw[aneoorange, ->, ultra thick]
+  %     ([xshift=0.2\textwidth]current page.west) --
+  %     ([xshift=-0.2\textwidth]current page.east)
+  %     node[midway, below] {Technical evolution};
+  % \end{tikzpicture}
+\end{frame}
+
+\begin{frame}
+  % todo: verify this slide
+  % ethernet should be checked
+  \frametitle{Large Scale Computations}
 
   \begin{itemize}
-    \item \textbf{Infrastructure as a Service (IaaS)}
+    \item \textbf{On-premises}
     \begin{itemize}
-      \item Use multiple virtual machines to execute computations
-      \item User has to set up everything (VMs, network, storage, etc.)
+      \item SLURM, Torque, Moab
+      \item HPC clusters / supercomputers
+      \item High-speed interconnects (InfiniBand, Omni-Path)
     \end{itemize}
 
-    \item \textbf{Platform as a Service (PaaS)}
+    \item \textbf{Amazon Web Services (AWS)}
     \begin{itemize}
-      \item Managed SLURM and Lustre for HPC
-      \item AWS : ParallelCluster
-      \item GCP : Cluster toolkit, managed SLURM deployment contributed by Aneo
-      \item Azure : CycleCloud
+      \item Managed services : AWS Batch, AWS ParallelCluster (SLURM)
+      \item Colocated resources with high-speed ethernet (Elastic Fabric Adapter from AWS)
+      \item Limited to the configurations exposed by AWS
+      \item Useful to start quickly
     \end{itemize}
 
-    \item \textbf{Software as a Service (SaaS)}
+    \item \textbf{Google Cloud Platform (GCP)}
     \begin{itemize}
-      \item Higher level of abstraction
-      \item Directly integrated with the final application
+      \item Managed service : Google Batch
+      \item Colocated resources with high-speed ethernet (Google Cloud's high-speed network)
+      \item Aneo contributes on High Availability for GCP SLURM deployment available in Cluster Toolkit
+      \item More configuration options but should be deployed by the user (vs managed services)
     \end{itemize}
   \end{itemize}
 \end{frame}
+
+
+\begin{frame}
+  \frametitle{Medium/Small Scale Computations}
+
+  \begin{itemize}
+    \item \textbf{1rst Game changers: Power of 1 node}
+    \begin{itemize}
+      \item NVidia H series GPU for 67 TFLOPS in FP64 and 4 PFLOPS in FP8 on tensor cores
+      (\href{https://nvdam.widen.net/s/nb5zzzsjdf/hpc-datasheet-sc23-h200-datasheet-3002446}{datasheet})
+      \item AMD EPYC 9965 with 192 cores and 384 threads (bi-processor)
+    \end{itemize}
+
+    \item \textbf{2nd Game changers: Cloud Providers}
+    \begin{itemize}
+      \item Very expensive powerful nodes
+      \item Available on-demand and pay-as-you-go on the Cloud
+      \item Affordable to use them for small/medium scale computations
+    \end{itemize}
+
+    \item \textbf{Impacts}
+    \begin{itemize}
+      \item Applications running on a few nodes can now run on a single node
+      \item Buying powerful nodes without fully using them is not whorth it
+      \item Better rent them only when needed
+    \end{itemize}
+
+    \item \textbf{3nd Game changers: Parametric studies}
+    \begin{itemize}
+      \item Small unitary runs
+      \item Needs a lot of them for exploring the parameter space or for Monte-Carlo simulations
+      \item Pre-processing and post-processing of potentially different nature and machines requirements
+      \item Need for integration of AI steps to accelerate exploration
+      \item May be large scale computations at the end
+    \end{itemize}
+
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Recap}
+
+  \begin{itemize}
+    \item Computations nature is changing with AIs and hardware evolutions
+    \item Cloud introduces new computing paradigms for computations and hardware accessibility
+    \item Decoupling of application and infrastructure lead to Serverless computing
+
+    
+
+  \end{itemize}
+\end{frame}
+
 
 \end{section}
 
@@ -216,7 +320,7 @@
 
 
   \begin{frame}
-    \frametitle{End 2020: a partnership with Crédit Agricole (CACIB) and AWS}
+    \frametitle{2020: a partnership with Crédit Agricole (CACIB) and AWS}
     \begin{columns}
       \column{0.5\textwidth}
       \begin{itemize}
