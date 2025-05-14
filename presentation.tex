@@ -75,16 +75,18 @@
 \begin{section}{Our vision of Cloud Computing}
   \begin{frame}
     \frametitle{What is the Cloud?}
-      \begin{alertblock}{Definition}
-      \begin{quote}
-        Paradigm for enabling network access to a \textbf<2>{scalable} and \textbf<2>{elastic} pool of shareable physical
-        or virtual resources with \textbf<2>{self-service} provisioning and administration \textbf<2>{on-demand}.
-        \\
-        --- ISO/IEC 17788:2014
-      \end{quote}
-    \end{alertblock}
+      \begin{minipage}[t][5cm][t]{\textwidth}
+        \begin{alertblock}{Definition}
+        \begin{quote}
+          Paradigm for enabling network access to a \textbf<2>{scalable} and \textbf<2>{elastic} pool of shareable physical
+          or virtual resources with \textbf<2>{self-service} provisioning and administration \textbf<2>{on-demand}.
+          \\
+          --- ISO/IEC 17788:2014
+        \end{quote}
+      \end{alertblock}
 
-    \only<2>{All of that through APIs and code}
+      \only<2>{All of that through APIs and code}
+    \end{minipage}
   \end{frame}
 
   \begin{frame}
@@ -305,6 +307,7 @@
         \item JUGENE \textbf{Supercomputer}
         \item 222 TFlops
       \end{itemize}
+      \centering
       \includegraphics[width=0.95\textwidth]{supercomputer-jugene.jpg}
     \end{column}
     \begin{column}{0.5\textwidth}
@@ -312,9 +315,9 @@
       \begin{itemize}
         \item 2025 Nvidia GB200 \textbf{chip}
         \item 160 TFlops
-
       \end{itemize}
-      \includegraphics[width=0.95\textwidth]{chip-gb200.png}
+      \centering
+      \includegraphics[width=0.8\textwidth]{chip-gb200.png}
     \end{column}
   \end{columns}
 
@@ -405,6 +408,20 @@
   \end{frame}
 
   \begin{frame}
+    \frametitle{Open source project}
+    \begin{itemize}
+      \item ArmoniK code is fully available on github
+      \item \href{https://github.com/aneoconsulting/ArmoniK}{ArmoniK's GitHub}
+      \item You can contribute
+      \item We are open to collaborations
+      \item How to use it ?
+      \begin{itemize}
+        \item \href{https://armonik.readthedocs.io/en/latest/content/armonik/getting-started.html}{Getting started}
+      \end{itemize}
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}
     \frametitle{Task-based Programming in ArmoniK}
     \begin{block}{Definition}
       Paradigm focusing on the decomposition of complex operations into smaller tasks
@@ -416,7 +433,7 @@
         \item Task distribution and load balancing
         \item Dependency resolution
         \item Tasks execution
-        \item Data management (overlapping, prefetching, and checkpointing)
+        \item Data manageme nt (overlapping, prefetching, and checkpointing)
       \end{itemize}
     \end{itemize}
   \end{frame}
@@ -507,7 +524,8 @@
       \item Automatic Uncoordinated Checkpointing
       \item Data communications through global storage
     \end{itemize}
-    % schema pour le pipelining
+    \vspace{3ex}
+    \includegraphics[width=0.8\textwidth]{armonik_pipelining.pdf}
   \end{frame}
 
   \begin{frame}
@@ -613,7 +631,7 @@
           \item Take advantage of SLURM queues to run ArmoniK compute plane
         \end{itemize}
       \end{itemize}
-      \item Docker not available too
+      \item Docker not available either
       \begin{itemize}
         \item Docker rootless
         \item Singularity
@@ -636,7 +654,7 @@
   \begin{frame}
     \frametitle{Formal Validation of ArmoniK's Properties}
     \begin{itemize}
-      \item Quentin's PhD goal
+      \item On going PhD thesis of Quantin DELAMEA
       \item Modelize ArmoniK scheduler
       \item Validate scheduling is fault tolerant, efficient, and malleable
     \end{itemize}
@@ -647,10 +665,15 @@
     \begin{itemize}
       \item Today, we mainly have financial applications
       \item We are also working in integrating AI tools
-      \item We study autonomous driving solutions with an automotive industrial
+      \item We are studying autonomous driving solutions with an automotive industrial
       \item We need more use cases
-        % couplage -> acceleration de methodes iteratives avec de l'IA, deux applications par taches
-        % subtasking -> methodes particulaires : radioprotection, lagrangien, ray tracing
+      \item Examples:
+      \begin{itemize}
+        \item Porting an appplication to ArmoniK
+        \item Coupling several task based applications
+        \item Accelerate iterative methods with AI
+        \item Particle physics : radioprotection, lagrangian, ray tracing
+      \end{itemize}
       \item Maybe yours !
     \end{itemize}
   \end{frame}
@@ -659,28 +682,10 @@
 
 \begin{section}{Are you interested in our solution ? $\rightarrow$ Come next session}
   \begin{frame}
-    \frametitle{Open source project}
-    \begin{itemize}
-      \item ArmoniK code is fully available on github
-      \item \href{https://github.com/aneoconsulting/ArmoniK}{ArmoniK's GitHub}
-      \item You can contribute
-      \item We are open to collaborations
-      \item How to use it ?
-      \begin{itemize}
-        \item \href{https://armonik.readthedocs.io/en/latest/content/armonik/getting-started.html}{Getting started}
-      \end{itemize}
-    \end{itemize}
-  \end{frame}
-
-  \begin{frame}
-    \frametitle{Next session}
+    \frametitle{Thank you for your attention!}
 
     Come use ArmoniK with us!
-
-  \end{frame}
-
-  \begin{frame}
-    \frametitle{Thank you for your attention!}
+    \\
     Questions?
   \end{frame}
 \end{section}
