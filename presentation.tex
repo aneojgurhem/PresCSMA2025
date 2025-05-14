@@ -1,10 +1,36 @@
 \documentclass[10pt,aspectratio=1609]{beamer}
 \usepackage{hyperref}
 \usepackage{amsmath}
+% \usepackage{minted}
+\usepackage{listings}
 
 % \usetheme{CambridgeUS}
 \usepackage{aneotheme}
 
+
+% Custom colors
+\definecolor{pykeyword}{rgb}{0.25, 0.3, 0.85}
+\definecolor{pycomment}{rgb}{0.0, 0.6, 0.0}
+\definecolor{pystring}{rgb}{0.65, 0.1, 0.1}
+\definecolor{codebg}{rgb}{0.97, 0.97, 0.97}
+
+% Listings configuration for Python
+\lstdefinestyle{pythonstyle}{
+  language=Python,
+  basicstyle=\ttfamily\scriptsize,
+  keywordstyle=\color{pykeyword}\bfseries,
+  commentstyle=\color{pycomment}\itshape,
+  stringstyle=\color{pystring},
+  backgroundcolor=\color{codebg},
+  showstringspaces=false,
+  breaklines=true,
+  frame=single,
+  rulecolor=\color{gray},
+  tabsize=2,
+  morekeywords={self}, % highlight custom keywords
+}
+
+\lstset{style=pythonstyle}
 
 \begin{document}
 \author{Jérôme Gurhem}
@@ -321,7 +347,6 @@
     \end{column}
   \end{columns}
 
-    % Ajouter la slide avec la comparaison des perfs avec 20 ans écart
     \begin{block}{Impacts}
       \begin{itemize}
         \item Supercomputers from 15 years ago are a single node today
@@ -436,6 +461,9 @@
         \item Data manageme nt (overlapping, prefetching, and checkpointing)
       \end{itemize}
     \end{itemize}
+    \footnotesize
+    % \inputminted[python]{task-based-programming.py}
+    \lstinputlisting[language=Python]{task-based-programming.py}
   \end{frame}
 
   \begin{frame}
@@ -489,6 +517,9 @@
       \item Tasks can submit new tasks
       \item Tasks can delegate the production of their output to their new tasks
     \end{itemize}
+    \footnotesize
+    \lstinputlisting[language=Python]{subtasking.py}
+    % \inputminted[python]{subtasking.py}
   \end{frame}
 
   \begin{frame}
@@ -508,6 +539,7 @@
       \end{column}
       \begin{column}{0.65\textwidth}
         \centering
+        \footnotesize
         \includegraphics[width=0.95\textwidth]{mermaid-dynamic-part2.png}
       \end{column}
     \end{columns}
@@ -683,10 +715,21 @@
 \begin{section}{Are you interested in our solution ? $\rightarrow$ Come next session}
   \begin{frame}
     \frametitle{Thank you for your attention!}
-
-    Come use ArmoniK with us!
-    \\
-    Questions?
+    \begin{columns}
+      \begin{column}{0.27\textwidth}
+        Come use ArmoniK with us!
+        \\
+        Questions ?
+      \end{column}
+      \begin{column}{0.71\textwidth}
+        \centering
+        \scriptsize
+        \begin{minipage}[t][\textheight][t]{\textwidth}
+          \lstinputlisting[language=Python]{pi.py}
+          % \inputminted[python]{pi.py}
+        \end{minipage}
+      \end{column}
+    \end{columns}
   \end{frame}
 \end{section}
 
