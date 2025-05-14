@@ -101,36 +101,36 @@
   \includegraphics[width=\textwidth]{saas.png}
 \end{frame}
 
-\begin{frame}
-  \frametitle{Scale of Computations}
+% \begin{frame}
+%   \frametitle{Scale of Computations}
 
-  \begin{columns}[T] % Align columns at the top
-    \begin{column}{0.33\textwidth}
-      \textbf{Small scale computations}
-      \begin{itemize}
-        \item Fit on developers' laptop
-        \item Possible need for parametric study
-      \end{itemize}
-    \end{column}
-    \begin{column}{0.33\textwidth}
-      \textbf{Medium scale computations}
-      \begin{itemize}
-        \item Tend to fit on 1 node with 100s of cores
-        \item Previously based on MPI+X and a few nodes
-        \item No longer needed due to single node performance
-        \item Possible need for parametric study
-      \end{itemize}
-    \end{column}
-    \begin{column}{0.33\textwidth}
-      \textbf{Large scale computations}
-      \begin{itemize}
-        \item 100s of nodes
-        \item Tight coupling
-        \item Need for low latency network for good performance
-        \item Based on MPI+X
-      \end{itemize}
-    \end{column}
-  \end{columns}
+%   \begin{columns}[T] % Align columns at the top
+%     \begin{column}{0.33\textwidth}
+%       \textbf{Small scale computations}
+%       \begin{itemize}
+%         \item Fit on developers' laptop
+%         \item Possible need for parametric study
+%       \end{itemize}
+%     \end{column}
+%     \begin{column}{0.33\textwidth}
+%       \textbf{Medium scale computations}
+%       \begin{itemize}
+%         \item Tend to fit on 1 node with 100s of cores
+%         \item Previously based on MPI+X and a few nodes
+%         \item No longer needed due to single node performance
+%         \item Possible need for parametric study
+%       \end{itemize}
+%     \end{column}
+%     \begin{column}{0.33\textwidth}
+%       \textbf{Large scale computations}
+%       \begin{itemize}
+%         \item 100s of nodes
+%         \item Tight coupling
+%         \item Need for low latency network for good performance
+%         \item Based on MPI+X
+%       \end{itemize}
+%     \end{column}
+%   \end{columns}
 
   % \vspace{1cm}
   % \centering
@@ -140,7 +140,7 @@
   %     ([xshift=-0.2\textwidth]current page.east)
   %     node[midway, below] {Technical evolution};
   % \end{tikzpicture}
-\end{frame}
+% \end{frame}
 
 % \begin{frame}
 %   % todo: verify this slide
@@ -174,176 +174,202 @@
 % \end{frame}
 
 
+% \begin{frame}
+%   \frametitle{1st Game Changers: Single Node Performance}
+
+%   % machines devenues plus puissantes
+%   % code devenu plus efficaces et rapides
+
+%   \begin{itemize}
+%     \item \textbf{2x AMD EPYC 9965}
+%     \begin{itemize}
+%       \item AVX512: 16 FP64 operations per cycle
+%       \item 192 cores and 384 threads
+%       \item 10.3 TFLOPS in FP64
+%       \item Allowed to have 2 on the same node
+%       \item $\Rightarrow$ 384 \textbf{cores} on the same node!
+%     \end{itemize}
+
+%     \item \textbf{NVidia H series GPU}
+%     \begin{itemize}
+%       \item XXX cuda cores
+%       \item 67 TFLOPS in FP64 and 4 PFLOPS in FP8 on tensor cores
+%       \item Allowed to have 8 on the same node
+%       \item \href{https://nvdam.widen.net/s/nb5zzzsjdf/hpc-datasheet-sc23-h200-datasheet-3002446}{datasheet doc}
+%     \end{itemize}
+%   \end{itemize}
+
+%   \begin{block}{Impacts}
+%     \begin{itemize}
+%       \item Scale of computations is changing with time
+%       \item Applications used to run on a few nodes can now run on a single node
+%       \item Most powerful nodes cost more than 10s of thousands of euros
+%     \end{itemize} 
+%   \end{block}
+
+% \end{frame}
+
+
+% \begin{frame}
+%   \frametitle{2nd Game changers: Cloud Providers}
+
+%     \begin{itemize}
+%       \item Buying powerful machines without fully using them is too expensive
+%       \item Available on-demand and pay-as-you-go on the Cloud
+%       \item Affordable to use them for computations
+%     \end{itemize}
+
+%     \begin{block}{Impacts}
+%       \begin{itemize}
+%         \item Renting a powerful node for a few hours is better than buying it
+%         \item Easy way to get heterogeneous resources (mix of CPUs and GPUs)
+%       \end{itemize}
+%     \end{block}
+% \end{frame}
+
+% \begin{frame}
+%   \frametitle{3rd Game changers: Parametric studies}
+
+%   \begin{itemize}
+%     \item Small unitary runs
+%     \item Needs a lot of them for exploring the parameter space or for Monte-Carlo simulations
+%     \item Pre-processing and post-processing of potentially different nature and machines requirements
+%     \item $\Rightarrow$ graph of hybrid computations
+%     \item May be large scale computations at the end
+%   \end{itemize}
+% \end{frame}
+
+% \begin{frame}
+%   \frametitle{Challenge: Fault Tolerance}
+
+%   \begin{itemize}
+%     \item Preemptible: cheaper (up to 80\%) computing resources that can be interrupted and reclaimed by the cloud provider anytime
+%     \item Applications must be able to recover from failures and continue execution
+%     \item Not suitable for all applications
+%     \item Large scale MPI-based applications not designed to handle loss of nodes
+%     \begin{itemize}
+%       \item Checkpointing and Restart is the main strategy
+%       \item Can work for preemptible resources but there is no guarantee that all the nodes will be available for the application to execute
+%       \item PMIx not fully supported for addition and removal of nodes during application execution
+%     \end{itemize}
+%     \item Very suitable for graph of small scale computations
+%     \begin{itemize}
+%       \item Application can be reexecuted on another node if a preemption occurs
+%       \item Support for heterogeneous resources
+%       \item Adapt to the available resources count
+%     \end{itemize}
+%   \end{itemize}
+% \end{frame}
+
+
+% \begin{frame}
+%   \frametitle{How to take advantage of these features ?}
+
+%   \begin{itemize}
+%     \item Computations nature is changing with AIs and hardware evolutions
+%     \item Cloud introduces new computing paradigms for computations and hardware accessibility
+%     \item Decoupling of application and infrastructure lead to Serverless computing
+%   \end{itemize}
+% \end{frame}
+
+
 \begin{frame}
-  \frametitle{1st Game Changers: Single Node Performance}
+  \frametitle{Supercomputers vs Cloud Computing}
 
-  % machines devenues plus puissantes
-  % code devenu plus efficaces et rapides
-
-  \begin{itemize}
-    \item \textbf{2x AMD EPYC 9965}
     \begin{itemize}
-      \item AVX512: 16 FP64 operations per cycle
-      \item 192 cores and 384 threads
-      \item 10.3 TFLOPS in FP64
-      \item Allowed to have 2 on the same node
-      \item $\Rightarrow$ 384 \textbf{cores} on the same node!
+      \item Both give access to a large number of interconnected computing resources
+      \item Both have persistent storage
+      \item Both provide job scheduling and resource management
+      \item Execute a job and rent cloud resources for a few hours is similar
+      \item Using supercomputers is very close to using a cloud provider
     \end{itemize}
 
-    \item \textbf{NVidia H series GPU}
-    \begin{itemize}
-      \item XXX cuda cores
-      \item 67 TFLOPS in FP64 and 4 PFLOPS in FP8 on tensor cores
-      \item Allowed to have 8 on the same node
-      \item \href{https://nvdam.widen.net/s/nb5zzzsjdf/hpc-datasheet-sc23-h200-datasheet-3002446}{datasheet doc}
-    \end{itemize}
-  \end{itemize}
-
-  \begin{block}{Impacts}
-    \begin{itemize}
-      \item Scale of computations is changing with time
-      \item Applications used to run on a few nodes can now run on a single node
-      \item Most powerful nodes cost more than 10s of thousands of euros
-    \end{itemize} 
-  \end{block}
-
-\end{frame}
-
-
-\begin{frame}
-  \frametitle{2nd Game changers: Cloud Providers}
-
-    \begin{itemize}
-      \item Buying powerful machines without fully using them is too expensive
-      \item Available on-demand and pay-as-you-go on the Cloud
-      \item Affordable to use them for computations
-    \end{itemize}
-
-    \begin{block}{Impacts}
+    \begin{block}{Main differences}
       \begin{itemize}
-        \item Renting a powerful node for a few hours is better than buying it
-        \item Easy way to get heterogeneous resources (mix of CPUs and GPUs)
+        \item Cloud is general purpose
+        \item Cloud offers more diverse services
+        \item From a user perspective, Cloud resources are almost unlimited
       \end{itemize}
     \end{block}
 \end{frame}
 
-\begin{frame}
-  \frametitle{3rd Game changers: Parametric studies}
 
-  \begin{itemize}
-    \item Small unitary runs
-    \item Needs a lot of them for exploring the parameter space or for Monte-Carlo simulations
-    \item Pre-processing and post-processing of potentially different nature and machines requirements
-    \item $\Rightarrow$ graph of hybrid computations
-    \item May be large scale computations at the end
-  \end{itemize}
+\begin{frame}
+  \frametitle{HPC = Grand Challenge ?}
+
+
+  \begin{columns}[T] % Align columns at the top
+    \begin{column}{0.5\textwidth}
+      \textbf{2007}
+      \begin{itemize}
+        \item JUGENE \textbf{Supercomputer}
+        \item 222 TFlops
+      \end{itemize}
+      \includegraphics[width=0.95\textwidth]{supercomputer-jugene.jpg}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \textbf{2025}
+      \begin{itemize}
+        \item 2025 Nvidia GB200 \textbf{chip}
+        \item 160 TFlops
+
+      \end{itemize}
+      \includegraphics[width=0.95\textwidth]{chip-gb200.png}
+    \end{column}
+  \end{columns}
+
+    % Ajouter la slide avec la comparaison des perfs avec 20 ans écart
+    \begin{block}{Impacts}
+      \begin{itemize}
+        \item Supercomputers from 15 years ago are a single node today
+      \end{itemize}
+    \end{block}
 \end{frame}
 
+
 \begin{frame}
-  \frametitle{Challenge: Fault Tolerance}
+  \frametitle{Yesterday's use cases have become commodities}
 
   \begin{itemize}
-    \item Preemptible: cheaper (up to 80\%) computing resources that can be interrupted and reclaimed by the cloud provider anytime
-    \item Applications must be able to recover from failures and continue execution
-    \item Not suitable for all applications
-    \item Large scale MPI-based applications not designed to handle loss of nodes
+    \item Past large scale computations are now a building block for applications
     \begin{itemize}
-      \item Checkpointing and Restart is the main strategy
-      \item Can work for preemptible resources but there is no guarantee that all the nodes will be available for the application to execute
-      \item PMIx not fully supported for addition and removal of nodes during application execution
+      \item Part of optimization algorithms
+      \item Used for training AI models
+      \item Multiphysics Coupling
     \end{itemize}
-    \item Very suitable for graph of small scale computations
+
+    \item They still need lots of resources
     \begin{itemize}
-      \item Application can be reexecuted on another node if a preemption occurs
-      \item Support for heterogeneous resources
-      \item Adapt to the available resources count
+      \item Many runs with different parameters
+      \item Need for pre-processing, aggregation and post-processing of results
+      \item Computations can be heterogeneous
+      \item Complex coupling and dependencies
     \end{itemize}
   \end{itemize}
-\end{frame}
 
+\end{frame}
 
 \begin{frame}
-  \frametitle{How to take advantage of these features ?}
+  \frametitle{Has HPC become HTC?}
 
-  \begin{itemize}
-    \item Computations nature is changing with AIs and hardware evolutions
-    \item Cloud introduces new computing paradigms for computations and hardware accessibility
-    \item Decoupling of application and infrastructure lead to Serverless computing
-  \end{itemize}
+  \begin{block}{HPC}
+    Few large communicating jobs 
+  \end{block}
+
+  \begin{block}{HTC}
+    Lots of small independant computations 
+  \end{block}
+
+  \begin{block}{New Workloads}
+    Lots of small computations with dependencies and complex data management
+
+    $\Rightarrow$ Mix between HPC and HTC
+  \end{block}
+
 \end{frame}
-
-
 \end{section}
 
-
-\begin{section}{Why we built our own cloud-native scheduler ?}
-
-  \begin{frame}
-    \frametitle{Genesis of ArmoniK}
-    \begin{itemize}
-      \item Multiple task/job schedulers and orchestrators already exist in the market.
-      \item Each has unique properties and programming paradigms tailored to different use cases.
-      \item However, none of these solutions offered all the features we required for our specific needs.
-      \item Aneo has experience working with both commercial and private task scheduling systems, providing valuable
-      insights into the gaps and limitations.
-      \item We’ve contributed by implementing missing features or developing workarounds to address the gaps in
-      existing systems.
-      \item A significant amount of effort has been spent solving the same challenges across various systems.
-      \item We identified an opportunity to build our own solution that is tailored to our clients’ needs and provides the
-      full functionality required.
-    \end{itemize}
-  \end{frame}
-
-  \begin{frame}
-    \frametitle{Opportunity: replace legacy HTC schedulers in Finance}
-    \begin{itemize}
-      \item Since early 2000's, market is shared between two proprietary software (IBM Symphony and Tibco Datasynapse)
-      \item Algorithms in finance were simple: Monte-Carlo is well suited for HTC
-      \item Since 2008, market regulators have enforced an evolution in the algorithms
-      \begin{itemize}
-        \item Sensitivity to the risk factors
-        \item Bank-level vs portfolio-level risk computation
-        \item Calibration must be mutualized between assets
-        \item Volatility calibration is much more expensive
-      \end{itemize}
-    \end{itemize}
-    
-    $\Rightarrow$ Integrating the compute library with the scheduler becomes more and more complex
-  \end{frame}
-
-
-  \begin{frame}
-    \frametitle{2020: a partnership with Crédit Agricole (CACIB) and AWS}
-    \begin{columns}
-      \column{0.5\textwidth}
-      \begin{itemize}
-        \item ANEO is responsible to develop a new open-source solution that
-        \begin{itemize}
-          \item Replaces all schedulers used by CACIB
-          \item Provides the same level of performances as proprietary solutions
-          \item Is portable on-prem/cloud (AWS, GCP, Qarnot, OVH)
-          \item Is elastic and autoscalable
-          \item Is portable Linux/Windows
-          \item Is usable in many languages (e.g.: C\#, Java, C++, Python)
-        \end{itemize}
-      \end{itemize}
-      \column{0.5\textwidth}
-      \begin{itemize}
-        \item The solution must be in production mid-2022
-        \begin{itemize}
-          \item Native observability
-          \item Fault-tolerance
-        \end{itemize}
-        \item ANEO adds some requirements
-        \begin{itemize}
-          \item Leverage Task-based programming
-          \item Allow for dynamic graphs
-          \item Industrialize the users' development process
-          \item Transfer HPC know-how into new fields
-        \end{itemize}
-      \end{itemize}
-    \end{columns}
-  \end{frame}
+\begin{section}{ArmoniK: A Bridge Between HPC, HTC and Cloud}
   
   \begin{frame}
     \frametitle{ArmoniK: a Hybrid Framework}
@@ -359,14 +385,7 @@
   \end{frame}
 
   \begin{frame}
-    \frametitle{Comparison with other schedulers}
-    \includegraphics[width=\textwidth]{pos-1.png}
-  \end{frame}
-\end{section}
-
-\begin{section}{ArmoniK, an answer to ease resilient large scale cloud computing}
-  \begin{frame}
-    \frametitle{A Serverless Many-Task Computing Ecosystem}
+    \frametitle{A Serverless Many-Task Computing Platform}
     \begin{alertblock}{Serverless}
       \begin{quote}
         Cloud service category in which the customer can use different cloud capabilities types
@@ -381,13 +400,6 @@
         Approach that aims to bridge the gap between High-Perfomance Computing and High-Throughput Computing.
         \\
         --- Wikipedia
-      \end{quote}
-    \end{alertblock}
-    \begin{alertblock}{Ecosystem}
-      \begin{quote}
-        System that environments and their organisms form through their interaction.
-        \\
-        --- Principles of Terrestrial Ecosystem Ecology, F. Stuart Chapin
       \end{quote}
     \end{alertblock}
   \end{frame}
@@ -450,20 +462,6 @@
   \end{frame}
 
   \begin{frame}
-    \frametitle{Simplified Architecture}
-    \centering
-    \vfill
-    \includegraphics[width=0.95\textwidth]{mermaid-simplifed-architecture.png}
-  \end{frame}
-
-  \begin{frame}
-    \frametitle{Tasks and Data Processing Cycle in ArmoniK}
-    \centering
-    \vfill
-    \includegraphics[width=0.95\textwidth]{mermaid-sequence.png}
-  \end{frame}
-
-  \begin{frame}
     \frametitle{Dynamic Graph}
     \begin{block}{Definition}
       Dependency graph is not fully known when scheduling starts.
@@ -499,123 +497,22 @@
   \end{frame}
 
   \begin{frame}
-    \frametitle{Data Management}
-    \begin{block}{Definition}
+    \frametitle{Computions/Comm Overlapping}
+    \begin{block}{Data Management}
       Responsibility for data allocation, transfer, and storage between computational operations
     \end{block}
     \begin{itemize}
       \item ArmoniK is responsible for tasks input and output data management
       \item Allows for automatic communication + scheduling/task execution overlapping
-      \item Automatic Checkpointing
-      \begin{itemize}
-        \item Uncoordinated checkpointing for every task
-      \end{itemize}
+      \item Automatic Uncoordinated Checkpointing
       \item Data communications through global storage
     \end{itemize}
-  \end{frame}
-
-  \begin{frame}
-    \frametitle{Portability}
-    \begin{block}{Definition}
-      Effort to transfer an application from one environment to another
-    \end{block}
-    \begin{itemize}
-      \item Based on container technology (Docker and Singularity)
-      \item Kubernetes deployment available
-      \item Cloud deployment with Managed Services
-      \item Client and workers potentially available in 10+ languages with gRPC
-      \begin{itemize}
-        \item Officially supported: C\#, C++, Python, Rust, Java, and JavaScript
-      \end{itemize}
-      \item Run on x86 and ARM architectures
-      \item Hybrid graphs are supported
-      \begin{itemize}
-        \item Tasks on different architectures, applications, environments
-      \end{itemize}
-      \item Supports GPU
-      \item Works on Linux and Windows
-    \end{itemize}
-  \end{frame}
-
-  \begin{frame}
-    \frametitle{Fault Tolerance}
-    \begin{block}{Definition}
-      Ability to continue functioning without interruption when one or more nodes fail
-    \end{block}
-    \begin{itemize}
-      \item Designed to support loss of all computing nodes but not all storage nodes
-      \item ArmoniK internal components are stateless
-      \item Status stored in high-reliability DB
-      \item Error management at the task level
-      \begin{itemize}
-        \item Tasks retried when there are errors
-        \item Manage hardware and software errors
-        \item Tasks re-executed elsewhere
-      \end{itemize}
-      \item Allow support for preemptible computing resources
-    \end{itemize}
-  \end{frame}
-
-  \begin{frame}
-    \frametitle{Malleability}
-    \begin{block}{Definition}
-      Dynamic reconfiguration of the number of allocated resources during execution without interruption
-    \end{block}
-    \begin{itemize}
-      \item Metrics provided to adjust computing resources to computing tasks
-      \begin{itemize}
-        \item Optimal number of instances to execute tasks
-        \item Avoid keeping idle resources
-        \item Only consume what is needed
-      \end{itemize}
-      \item Kubernetes autoscaling properties used
-      \begin{itemize}
-        \item Could be swapped with another resource manager/allocator
-      \end{itemize}
-    \end{itemize}
-  \end{frame}
-
-  \begin{frame}
-    \frametitle{Resource Sharing}
-    \begin{block}{Definition}
-      Share resources between applications
-    \end{block}
-    \begin{itemize}
-      \item Scheduling multiple applications at the same time on the same resources
-      \item Resources only used when needed
-      \item Leverage maximum task parallelism
-      \item Maximizing tasks throughput, not minimizing latency
-    \end{itemize}
-  \end{frame}
-
-  \begin{frame}
-    \frametitle{Modularity}
-    \begin{block}{Definition}
-      Modules can be swapped without modifying ArmoniK's code
-    \end{block}
-    \begin{itemize}
-      \item \textbf{Containers}:
-      \begin{itemize}
-        \item Can be executed everywhere container runtime is available
-        \item Not easy, but difficulty is manageable
-      \end{itemize}
-      \item \textbf{Queue system}:
-      \begin{itemize}
-        \item Manages task execution ordering and distribution
-        \item Interface is provided, and plugins can be loaded dynamically
-        \item Allows swapping for another queue system or orchestration strategy
-      \end{itemize}
-      \item \textbf{Object storage}:
-      \begin{itemize}
-        \item Manages data storage in ArmoniK (tasks input and output)
-        \item Interface is provided, and plugins can be loaded dynamically
-        \item Allows storing data where the user wants/needs
-      \end{itemize}
-    \end{itemize}
+    % schema pour le pipelining
   \end{frame}
 
   \begin{frame}
     \frametitle{Observability}
+    % mettre la video de Jules
     \begin{block}{Definition}
       Ability to understand the internal state of a system based solely on its external outputs.
     \end{block}
@@ -637,13 +534,33 @@
   \end{frame}
 
   \begin{frame}
-    \frametitle{Production-ready}
+    \frametitle{ArmoniK Main Features}
+    \begin{itemize}
+      \item \textbf{Portability}: Effort to transfer an application from one environment to another
+      \begin{itemize}
+        \item Officially supported languages: C\#, C++, Python, Rust, Java, and JavaScript
+        \item Tasks on different architectures (x86, ARM, GPU, Linux, Windows), applications, environments
+      \end{itemize}
+      \item \textbf{Fault Tolerance}: Ability to continue functioning without interruption when one or more nodes fail
+      \begin{itemize}
+        \item Allow support for preemptible computing resources
+        \item Error management at the task level
+      \end{itemize}
+      \item \textbf{Malleability}: Dynamic reconfiguration of the number of allocated resources during execution without interruption
+      \item \textbf{Resource Sharing}: Share resources between applications to execute as many as possible at the same
+      \item \textbf{Modularity}: Modules can be swapped without modifying ArmoniK's code to suit user neeeds and constraints
+    
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Production in Critical Systems}
     \begin{block}{Definition}
       System that meets all functional and non-functional requirements, is thoroughly tested, and is stable, secure, scalable, and maintainable enough to be deployed in a live production environment.
     \end{block}
     \begin{itemize}
       \item In production!
-      \item Used by clients for their critical computations
+      \item Used by our clients in their critical systems
       \item Explains our needs for:
       \begin{itemize}
         \item Validation and guarantees
@@ -655,24 +572,7 @@
 
 \end{section}
 
-\begin{section}{How we plan to adress larger scale applications ?}
-  \begin{frame}
-    \frametitle{Data Management Optimization}
-    \begin{itemize}
-      \item As of today, every data is read and written from our object storage
-      \begin{itemize}
-        \item Even in the case the data was used or produced in the preceding task
-        \item Ensures no data loss
-        \item Very costly and sub-optimal
-      \end{itemize}
-      \item Optimizations
-      \begin{itemize}
-        \item Node-level caching system
-        \item P2P Distributed storage system to harness RDMA performances
-        \item Checkpointing strategies
-      \end{itemize}
-    \end{itemize}
-  \end{frame}
+\begin{section}{How can we make ArmoniK address more data intensive applications ?}
 
   \begin{frame}
     \frametitle{Data-Aware Scheduling Strategies}
@@ -691,9 +591,10 @@
         \end{itemize}
         \item Fine-grained data lifecycle management
         \begin{itemize}
+          \item Caching system to store data on the nodes
           \item Data usage hints to help remove data from cache when not used anymore
           \item Data can be used as dependencies during new tasks submission (dynamic graph)
-          \item Help scheduler during task distribution
+          \item Help scheduler during task distribution and checkpointing
         \end{itemize}
       \end{itemize}
     \end{itemize}
@@ -723,52 +624,12 @@
   \end{frame}
 
   \begin{frame}
-    \frametitle{Federation}
-    \begin{block}{Definition}
-      Manage and use multiple ArmoniK instances as one
-    \end{block}
-    \begin{itemize}
-      \item Multi-site deployment
-      \begin{itemize}
-        \item Multiple instances on the same cloud provider
-        \item Different cloud
-        \item On-prem and cloud
-      \end{itemize}
-      \item Load balancing
-      \begin{itemize}
-        \item Choose the best instance according to usage, price, data sensitivity, arbitrary data, etc.
-        \item Allow users to implement their own policies
-      \end{itemize}
-      \item Bursting
-      \begin{itemize}
-        \item When/How to split the graph?
-        \item How to avoid/reduce data migration between two instances?
-      \end{itemize}
-    \end{itemize}
-  \end{frame}
-
-  \begin{frame}
     \frametitle{Performance Analysis Tools}
     \begin{itemize}
       \item Usually a complex task due to the complexity of the problem solved and the software stack
       \item Increased complexity with ArmoniK's malleability making the number of resources used vary
       \item Provide data usable for performance analysis
       \item Build tooling to allow users to easily identify performance bottlenecks
-    \end{itemize}
-  \end{frame}
-
-  \begin{frame}
-    \frametitle{Hybrid Computations Use Cases}
-    \begin{itemize}
-      \item Coupling HPC application and ArmoniK applications
-      \begin{itemize}
-        \item HPC code is ArmoniK's client
-      \end{itemize}
-      \item HPC workloads
-      \begin{itemize}
-        \item ArmoniK is used to implement the whole application
-      \end{itemize}
-      \item Application mixing CPU/GPU/QPU
     \end{itemize}
   \end{frame}
 
@@ -780,6 +641,20 @@
       \item Validate scheduling is fault tolerant, efficient, and malleable
     \end{itemize}
   \end{frame}
+
+  \begin{frame}
+    \frametitle{We are looking for other use cases}
+    \begin{itemize}
+      \item Today, we mainly have financial applications
+      \item We are also working in integrating AI tools
+      \item We study autonomous driving solutions with an automotive industrial
+      \item We need more use cases
+        % couplage -> acceleration de methodes iteratives avec de l'IA, deux applications par taches
+        % subtasking -> methodes particulaires : radioprotection, lagrangien, ray tracing
+      \item Maybe yours !
+    \end{itemize}
+  \end{frame}
+
 \end{section}
 
 \begin{section}{Are you interested in our solution ? $\rightarrow$ Come next session}
