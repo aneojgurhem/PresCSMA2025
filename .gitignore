@@ -10,3 +10,4 @@
 *.bak*
 cache
 *.synctex.gz
+build

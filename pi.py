@@ -24,5 +24,4 @@ if __name__ == "__main__":
         results = estimate_pi_partial.map_invoke([(samples_per_task,) for _ in range(ntasks)])
         final_result = sum_results.invoke(results)
         final_result = final_result.wait().get()
-
         print(f"Estimated value of Pi: {final_result}")

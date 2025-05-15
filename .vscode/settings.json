@@ -2,6 +2,7 @@
     "latex-workshop.latex.external.build.command": "sh",
     "latex-workshop.latex.external.build.args": [
         "-c",
-        "docker run --rm -v $PWD:/src -w /src -u $UID:$GID latex just compile",
+        "docker run --rm -v $PWD:/src -w /src -u $UID:$GID latex just compile %TEX%",
     ],
+    "latex-workshop.latex.autoBuild.run": "never",
 }

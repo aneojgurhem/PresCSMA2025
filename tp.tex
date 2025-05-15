@@ -1,0 +1,107 @@
+\documentclass[10pt,aspectratio=1609]{beamer}
+\usepackage{hyperref}
+\usepackage{amsmath}
+% \usepackage{minted}
+\usepackage{listings}
+
+% \usetheme{CambridgeUS}
+\usepackage{aneotheme}
+
+
+% Custom colors
+\definecolor{pykeyword}{rgb}{0.25, 0.3, 0.85}
+\definecolor{pycomment}{rgb}{0.0, 0.6, 0.0}
+\definecolor{pystring}{rgb}{0.65, 0.1, 0.1}
+\definecolor{codebg}{rgb}{0.97, 0.97, 0.97}
+
+% Listings configuration for Python
+\lstdefinestyle{pythonstyle}{
+  language=Python,
+  basicstyle=\ttfamily\scriptsize,
+  keywordstyle=\color{pykeyword}\bfseries,
+  commentstyle=\color{pycomment}\itshape,
+  stringstyle=\color{pystring},
+  backgroundcolor=\color{codebg},
+  showstringspaces=false,
+  breaklines=true,
+  frame=single,
+  rulecolor=\color{gray},
+  tabsize=2,
+  morekeywords={self}, % highlight custom keywords
+}
+
+\lstset{style=pythonstyle}
+
+\begin{document}
+\author{Jérôme Gurhem}
+\title{Cloud computing with \\ ArmoniK TP}
+\subtitle{CSMA Juniors 2025}
+\institute{Aneo}
+\date{\today}
+
+\titlepage
+
+\AtBeginSection[]
+{
+	\frame{\sectionpage}
+}
+
+
+% - description du sdk + pointage sur la doc
+% - demo 1: portage de code simple
+% - demo 2: execution d'un des exemples
+% - TP 1: installation locale d'armonik
+% - TP 2: execution d'un exemple
+% - TP 3: execution d'un exemple sur un cluster ArmoniK dans le cloud
+% - TP 4: ecriture de votre propre exemple/application
+
+
+\begin{section}{ArmoniK, the installation}
+\begin{frame}[fragile]{ArmoniK, the installation}
+  \begin{itemize}
+    \item \url{https://github.com/aneoconsulting/ArmoniK}
+    \item \url{https://armonik.readthedocs.io/en/latest/content/armonik/getting-started.html}
+  \end{itemize}
+  \begin{lstlisting}[language=Python, caption=ArmoniK installation TLDR]
+    git clone https://github.com/aneoconsulting/ArmoniK.git
+    cd ArmoniK
+    ./infrastructure/utils/scripts/installation/prerequisites-installer.sh
+    cd infrastructure/quick-deploy/localhost
+    make
+  \end{lstlisting}
+\end{frame}
+\end{section}
+
+\begin{section}{PymoniK, the ArmoniK Python SDK}
+  \begin{frame}[fragile]{PymoniK, the ArmoniK Python SDK}
+    \begin{itemize}
+      \item \url{https://aneoconsulting.github.io/PymoniK/}
+      \item task: decorator to define a task
+      \item with PymoniK: environment manager to execute tasks on ArmoniK 
+      \item endpoint: connection url to ArmoniK
+      \item mydecorated_function.invoke(): execute the task on ArmoniK
+      \item .wait(): wait for the task to finish
+      \item .get(): get the result of the task 
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}[fragile]{PymoniK installation}
+    \begin{itemize}
+      \item \url{https://github.com/aneoconsulting/PymoniK}
+    \end{itemize}
+
+    \begin{lstlisting}[language=Python, caption=Run PymoniK exemple]
+      git clone https://github.com/aneoconsulting/PymoniK.git
+      cd PymoniK/test_client
+      # Edit the endpoint if you want to use another ArmoniK instance
+      uv run estimate_pi.py
+    \end{lstlisting}
+
+    \begin{itemize}
+      \item Write your own!
+      \item Publish it on CSMA Github!
+    \end{itemize}
+  \end{frame}
+\end{section}
+
+\end{document}
